@@ -1,0 +1,20 @@
+# Ignore build artifacts
+**/build/
+
+# Ignore VS Code settings
+*.code-workspace
+.vscode/c_cpp_properties.json
+.vscode/settings.json
+
+# Ignore CMake build files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
+# Ignore temporary files
+*.tmp
+*.temp
+*.bak
+
+# Generated files
+.mxproject

@@ -1,0 +1,127 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 23,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "app1_base",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/app/app1/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true,
+                "APP_CORE_INCLUDE_DIR": "${sourceDir}/app/app1/Core/Inc",
+                "APP_LINKER_SCRIPT": "${sourceDir}/app/app1/STM32G491XX_FLASH.ld",
+                "DRIVER": "STM32G4xx",
+                "APP1_FIRMWARE_ENABLED": "ON",
+                "MICROCONTROLLER": "STM32G491xx",
+                "RTOS": "FreeRTOS"
+            }
+        },
+        {
+            "name": "app1_Debug",
+            "inherits": "app1_base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_CXX_FLAGS_DEBUG": "-DDEBUG -DLOG_BUILD_LEVEL=5",
+                "CMAKE_C_FLAGS_DEBUG": "-DDEBUG -DLOG_BUILD_LEVEL=5"
+            }
+        },
+        {
+            "name": "app1_Release",
+            "inherits": "app1_base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_CXX_FLAGS_RELEASE": "-DLOG_BUILD_LEVEL=3",
+                "CMAKE_C_FLAGS_RELEASE": "-DLOG_BUILD_LEVEL=3"
+            }
+        },
+        {
+            "name": "app2_base",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/app/app2/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true,
+                "APP_CORE_INCLUDE_DIR": "${sourceDir}/app/app2/Core/Inc",
+                "APP_LINKER_SCRIPT": "${sourceDir}/app/app2/STM32G491XX_FLASH.ld",
+                "DRIVER": "STM32G4xx",
+                "APP2_FIRMWARE_ENABLED": "ON",
+                "MICROCONTROLLER": "STM32G491xx",
+                "RTOS": "FreeRTOS"
+            }
+        },
+        {
+            "name": "app2_Debug",
+            "inherits": "app2_base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_CXX_FLAGS_DEBUG": "-DDEBUG -DLOG_BUILD_LEVEL=5",
+                "CMAKE_C_FLAGS_DEBUG": "-DDEBUG -DLOG_BUILD_LEVEL=5"
+            }
+        },
+        {
+            "name": "app2_Release",
+            "inherits": "app2_base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_CXX_FLAGS_RELEASE": "-DLOG_BUILD_LEVEL=3",
+                "CMAKE_C_FLAGS_RELEASE": "-DLOG_BUILD_LEVEL=3"
+            }
+        },
+        {
+            "name": "UnitTest_base",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true
+            }
+        },
+        {
+            "name": "UnitTest_firmware",
+            "inherits": "UnitTest_base",
+            "cacheVariables": {
+                "APP1_FIRMWARE_ENABLED": "ON",
+                "APP2_FIRMWARE_ENABLED": "ON",
+                "UNITTESTS_ENABLED": "ON",
+                "CMAKE_CXX_FLAGS": "-DLOG_BUILD_LEVEL=6",
+                "CMAKE_C_FLAGS": "-DLOG_BUILD_LEVEL=6"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "app1_Debug",
+            "configurePreset": "app1_Debug"
+        },
+        {
+            "name": "app1_Release",
+            "configurePreset": "app1_Release"
+        },
+        {
+            "name": "app2_Debug",
+            "configurePreset": "app2_Debug"
+        },
+        {
+            "name": "app2_Release",
+            "configurePreset": "app2_Release"
+        },
+        {
+            "name": "UnitTest_firmware",
+            "configurePreset": "UnitTest_firmware"
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "UnitTest_firmware",
+            "configurePreset": "UnitTest_firmware",
+            "output": {
+                "outputOnFailure": true
+            }
+        }
+    ]
+}
